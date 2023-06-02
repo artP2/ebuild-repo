@@ -40,7 +40,7 @@ DESCRIPTION="ristate"
 # Double check the homepage as the cargo_metadata crate
 # does not provide this value so instead repository is used
 HOMEPAGE="https://gitlab.com/snakedye/ristate"
-SRC_URI="https://codeload.github.com/artP2/ristate/tar.gz/refs/heads/master -> ristate-master.tar.gz
+SRC_URI="https://gitlab.com/snakedye/ristate/-/archive/master/ristate-master.tar.gz
 	$(cargo_crate_uris)"
 
 S="${WORKDIR}/ristate-master"
