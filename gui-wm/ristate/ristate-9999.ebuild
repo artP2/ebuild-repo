@@ -34,16 +34,15 @@ CRATES="
 	xml-rs-0.8.4
 "
 
-inherit cargo
+inherit cargo git-r3
 
 DESCRIPTION="ristate"
 # Double check the homepage as the cargo_metadata crate
 # does not provide this value so instead repository is used
 HOMEPAGE="https://gitlab.com/snakedye/ristate"
-SRC_URI="https://gitlab.com/snakedye/ristate/-/archive/master/ristate-master.tar.gz
-	$(cargo_crate_uris)"
+EGIT_REPO_URI="https://gitlab.com/snakedye/ristate"
+SRC_URI="$(cargo_crate_uris)"
 
-S="${WORKDIR}/ristate-master"
 # License set may be more restrictive as OR is not respected
 # use cargo-license for a more accurate license picture
 LICENSE="Apache-2.0 Boost-1.0 MIT"
@@ -58,5 +57,16 @@ BDEPEND=""
 # update with proper path to binaries this crate installs, omit leading /
 QA_FLAGS_IGNORED="usr/bin/${PN}"
 
-# nao sei pq 
-ED=""
+src_unpack(){
+	git-r3_src_unpack
+	cargo_live_src_unpack
+}
+
+src_configure(){
+	cargo_gen_config
+	cargo_src_configure --frozen
+}
+
+src_install(){
+	cargo_src_install
+}
